@@ -1,0 +1,23 @@
+{
+  "name": "llmr",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build": "python3 build.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com-oatmeal:oatmeal/llmr.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "devDependencies": {
+    "terser": "^5.12.1"
+  },
+  "dependencies": {
+    "leaflet": "^1.8.0",
+    "leaflet-sidebar-v2": "^3.2.3",
+    "leaflet.tilelayer.fallback": "^1.0.4"
+  }
+}
