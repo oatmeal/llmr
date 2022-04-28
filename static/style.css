@@ -37,7 +37,7 @@ body,
 }
 
 .infinite-background-layer {
-  height: 100vh;
+  height: var(--h);
   width: 100vw;
   background-repeat: repeat;
   -webkit-transition: background-size 0.25s cubic-bezier(0, 0, 0.25, 1);
@@ -89,6 +89,9 @@ button {
 .dimension-switch {
   margin-bottom: 10px;
 }
+.dimension-radio {
+  display: inline-block;
+}
 
 .coord-marker {
   filter: hue-rotate(130deg);
@@ -132,11 +135,11 @@ button {
 #timeline-contents {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 60px);
+  height: calc(var(--h) - 60px);
 }
 @media (min-width:768px) {
   #timeline-contents {
-    height: calc(100vh - 80px);
+    height: calc(var(--h) - 80px);
   }
 }
 #timeline-switch {
