@@ -11,7 +11,7 @@ npm run build
 ```
 
 - https://developer.mozilla.org/ja/docs/Learn/Common_questions/set_up_a_local_testing_server
-- VS Code Live Share Extension
+- VS Code Live Preview Extension
 
 `deploy/index.html`
 
