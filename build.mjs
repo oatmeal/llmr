@@ -1,6 +1,7 @@
 import fsPromises from "fs/promises";
 import { minify } from "terser";
 import fg from "fast-glob";
+import stringify from "fast-json-stable-stringify";
 
 function mod(a, b) {
   return ((a % b) + b) % b;
@@ -56,7 +57,7 @@ async function minifyDatesJson() {
   );
   fsPromises.writeFile(
     deployDir + "/data/dates.json",
-    JSON.stringify(datesJson)
+    stringify(datesJson)
   );
 }
 
@@ -206,7 +207,7 @@ for (const dimension of ["overworld", "nether", "end"]) {
 
     // write minified JSON
     const outFn = deployDir + "/data/" + dimension + "/" + fnName;
-    fsPromises.writeFile(outFn, JSON.stringify(over));
+    fsPromises.writeFile(outFn, stringify(over));
   }
 
   // map.js and the code below assumes this is sorted!
@@ -322,11 +323,15 @@ for (const dimension of ["overworld", "nether", "end"]) {
           }
         }
       }
+      // sort for deterministic output
+      for (const a of Object.values(tileReplacementsDict)) {
+        a.sort();
+      }
       const outFn =
         deployDir + "/data/" + dimension + "/" + date + "-" + mode + ".json";
       fsPromises.writeFile(
         outFn,
-        JSON.stringify({
+        stringify({
           tileReplacements: tileReplacementsDict,
           skip: skippedTiles,
         })
@@ -365,5 +370,5 @@ for (const dimension of ["overworld", "nether", "end"]) {
     ratio: Math.floor(Math.pow(2, 11 - (minZoom - 4)) / tileSize),
   };
   const outFn = deployDir + "/data/" + dimension + ".json";
-  fsPromises.writeFile(outFn, JSON.stringify(dimDict));
+  fsPromises.writeFile(outFn, stringify(dimDict));
 }
