@@ -1,0 +1,28 @@
+name: build and deploy to github pages
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    name: build and deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: build
+        run: |
+          npm i
+          npm run build
+
+      - name: deploy
+        run: |
+          if [ "$github_repo" = "oatmeal/llmr" ] && [ "$github_ref" = "refs/heads/main" ]; then
+            ./deploy.sh
+          fi
+        env:
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+          github_repo: ${{ github.repository }}
+          github_ref: ${{ github.ref }}
