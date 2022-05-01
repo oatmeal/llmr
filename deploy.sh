@@ -1,7 +1,7 @@
 set -e
 set -x
 
-git clone --branch master "https://$DEPLOY_GITHUB_USER:$DEPLOY_GITHUB_TOKEN@github.com/oatmeal/llmr.git" ./build
+git clone --branch gh-pages "https://$DEPLOY_USER:$DEPLOY_TOKEN@github.com/oatmeal/llmr.git" ./build
 
 cp -r deploy/. build
 

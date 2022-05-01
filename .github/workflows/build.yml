@@ -12,17 +12,17 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
 
+      - name: npm install
+        run: npm i
+
       - name: build
-        run: |
-          npm i
-          npm run build
+        run: npm run build
 
       - name: deploy
-        run: |
-          if [ "$github_repo" = "oatmeal/llmr" ] && [ "$github_ref" = "refs/heads/main" ]; then
-            ./deploy.sh
-          fi
+        run: ./deploy.sh
         env:
+          DEPLOY_USER: oatmeal
           DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
           github_repo: ${{ github.repository }}
           github_ref: ${{ github.ref }}
+          git_hash: ${{ github.sha }}
