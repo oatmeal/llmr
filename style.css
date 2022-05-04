@@ -128,6 +128,9 @@ button {
 .layers-details-title {
   margin-bottom: 10px;
 }
+.layers-eye, .layers-details-marker {
+  cursor: pointer;
+}
 .layers-details-marker:hover {
   background-color: #999;
 }
