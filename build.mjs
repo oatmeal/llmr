@@ -55,10 +55,7 @@ async function minifyDatesJson() {
   const datesJson = JSON.parse(
     await fsPromises.readFile("data/dates.json", "utf-8")
   );
-  fsPromises.writeFile(
-    deployDir + "/data/dates.json",
-    stringify(datesJson)
-  );
+  fsPromises.writeFile(deployDir + "/data/dates.json", stringify(datesJson));
 }
 
 minifyDatesJson();
@@ -227,7 +224,7 @@ for (const dimension of ["overworld", "nether", "end"]) {
         const keyDates = timeFileDict[key];
         // console.log(date, mode, key, keyDates);
         // skip tile if it doesn't appear with the given mode / date
-        if (mode === "e" && keyDates[date] === undefined) continue;
+        if (mode === "e" && !keyDates.includes(date)) continue;
         // keyDates is sorted, so keyDates[0] should be the min
         if (mode === "b" && date < keyDates[0]) continue;
         // calculate date to use
@@ -277,8 +274,8 @@ for (const dimension of ["overworld", "nether", "end"]) {
           const currPKey = `${pz}/${ptx}/${ptz}`;
           if (
             mode === "e" &&
-            timeFileDict[date] &&
-            timeFileDict[currPKey][date]
+            timeFileDict[currPKey] &&
+            timeFileDict[currPKey].includes(date)
           ) {
             // console.log('skipping',key,date,'due to',currPKey);
             break;
