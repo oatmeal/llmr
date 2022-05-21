@@ -1,28 +1,45 @@
 # りり村のWeb地図
 
-## BUILD
+View site at https://oatmeal.github.io/llmr
 
+## Build instructions
+
+To build the website from source, follow these steps:
+
+- Clone this repository
+
+- Install　NodeJS 16 or newer from https://nodejs.org/
+
+- In your terminal, navigate to the root directory of this repository and run the following command to set up the environment (only needs to be run once unless `package.json` has been updated.)
 ```
 npm install
 ```
 
+- Each time you edit HTML / JS / CSS files or adding new tiles or data files, run the following to build the website:
 ```
 npm run build
 ```
 
-- https://developer.mozilla.org/ja/docs/Learn/Common_questions/set_up_a_local_testing_server
-- VS Code Live Preview Extension
+- The site will be at `deploy/index.html`. You will have to run a local web server to view it properly:
+  - https://developer.mozilla.org/ja/docs/Learn/Common_questions/set_up_a_local_testing_server
+  - I use VS Code for development, and the "VS Code Live Preview Extension" is handy for this.
 
-`deploy/index.html`
+## How to add tiles / data
+
+To be written...
+
+## Development notes
+
+[These very rough notes](./notes.md) contain an outline of the data structures used in the app.
 
 ## THANKS TO
 
-### ライブラリ
+### Open source libraries used
 - https://leafletjs.com
 - https://github.com/ghybs/Leaflet.TileLayer.Fallback
 - https://github.com/noerw/leaflet-sidebar-v2
 
-### アイコン
+### Icons
 - https://uxwing.com
 
 ## LICENSE
