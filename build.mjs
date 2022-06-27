@@ -1,7 +1,11 @@
+import { promisify } from "util";
+import { exec } from "child_process";
 import fsPromises from "fs/promises";
 import { minify } from "terser";
 import fg from "fast-glob";
 import stringify from "fast-json-stable-stringify";
+
+const exec_promise = promisify(exec);
 
 function mod(a, b) {
   return ((a % b) + b) % b;
@@ -46,7 +50,16 @@ fsPromises.cp(
 
 async function minifyMapJs() {
   const mapJs = await fsPromises.readFile("lib/map.js", "utf-8");
-  fsPromises.writeFile(deployDir + "/map.js", (await minify(mapJs)).code);
+  const minified = (await minify(mapJs)).code;
+  // get last commit time
+  const gitlog = (await exec_promise("git log -1 --format=%cd")).stdout;
+  const time = new Date(gitlog).toLocaleString("ja-JP", {
+    timeZone: "Asia/Tokyo",
+  });
+  fsPromises.writeFile(
+    deployDir + "/map.js",
+    minified.replace("***UPDATED***", time)
+  );
 }
 
 minifyMapJs();
