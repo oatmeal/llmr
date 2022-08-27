@@ -169,6 +169,9 @@ button {
   width: 30px;
   text-align: right;
 }
+.timeline-details-summary {
+  font-size: 1rem;
+}
 
 #permalink-text {
   margin-top: 10px;
