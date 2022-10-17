@@ -46,6 +46,6 @@ To be written...
 
 Portions of the code are modified from LeafletJS and Leaflet.TileLayer.Fallback and are under their respective licenses (BSD 2-clause and Apache v2). Other Javascript / CSS / HTML / Python code in this project is licensed under the BSD 2-clause license. See the LICENSE file for full details.
 
-Icon SVG files are from https://uxwing.com and used under the terms specified at https://uxwing.com/license/.
+Icon SVG files in `static/icons/` are from https://uxwing.com and used under the terms specified at https://uxwing.com/license/. `static/TwitchGlitchPurple.svg` is from the [Twitch brand assets](https://brand.twitch.tv/) and used under the terms specified at https://www.twitch.tv/p/en/legal/trademark/.
 
 Tile images and JSON data files may not be used in other projects without explicit written permission.

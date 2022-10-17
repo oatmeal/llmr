@@ -73,7 +73,25 @@ async function minifyDatesJson() {
 
 minifyDatesJson();
 
-// console.log(await fg('tiles/end/**/*.png'));
+async function minifyVodsJson() {
+  const vodsJson = JSON.parse(
+    await fsPromises.readFile("data/vods.json", "utf-8")
+  ).map(({ id, title }) => {
+    const year = title.match(/(\d+)年\d+月\d+日/)[1];
+    const month = title.match(/\d+年(\d+)月\d+日/)[1].padStart(2, "0");
+    const day = title.match(/\d+年\d+月(\d+)日/)[1].padStart(2, "0");
+    return {
+      id,
+      date: `${year}${month}${day}`,
+      title: title
+        .replace(/[【\[][〆🏡🏠の]*Minecraft[】\]]/g, "")
+        .replace(/[：；:]?(\d+年\d+月\d+日)/, ""),
+    };
+  });
+  fsPromises.writeFile(deployDir + "/data/vods.json", stringify(vodsJson));
+}
+
+minifyVodsJson();
 
 const layerIds = {};
 
