@@ -3,6 +3,9 @@ set -x
 
 git clone --branch gh-pages "https://$DEPLOY_USER:$DEPLOY_TOKEN@github.com/oatmeal/llmr.git" ./build
 
+# ignores files starting with ., including .git
+rm -rf build/*
+
 cp -r deploy/. build
 
 if [ "$github_repo" = "oatmeal/llmr" -a "$github_ref" = "refs/heads/main" ]; then
