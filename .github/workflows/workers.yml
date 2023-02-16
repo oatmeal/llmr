@@ -22,5 +22,5 @@ jobs:
         uses: cloudflare/wrangler-action@2.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
-          preCommands: npm install
+          preCommands: npm install @cloudflare/kv-asset-handler
           command: publish
