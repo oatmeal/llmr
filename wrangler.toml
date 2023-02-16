@@ -1,5 +1,5 @@
 name = "llmr"
-type = "webpack"
 workers_dev = true
-site = { bucket = "./deploy", entry-point = "workers-site" }
-compatibility_date = "2022-05-03"
+main = "workers-site/index.js"
+site = { bucket = "./deploy" }
+compatibility_date = "2023-02-16"
