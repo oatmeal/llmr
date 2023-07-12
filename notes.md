@@ -65,6 +65,7 @@
       - `lines` [for each polyline]
         - `name` (optional)
         - `pts` [array of coordinate triples]
+        - ... (other options supported by [Leaflet's polyline method]( https://leafletjs.com/reference.html#polyline) can be included as well)
     - `dataLayer` (leaflet layer object)
   - `sidebar`
     - `timelineControl`
