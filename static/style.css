@@ -116,6 +116,10 @@ button {
   margin-top: 5px;
 }
 
+.road-closed {
+  stroke-dasharray: 1 5;
+}
+
 .layers-layerlist {
   display: flex;
 }
