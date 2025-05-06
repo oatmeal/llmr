@@ -138,7 +138,9 @@ button {
 .layers-details-marker:hover {
   background-color: #999;
 }
-
+details {
+  margin-left: 1em;
+}
 #timeline-contents {
   display: flex;
   flex-direction: column;
