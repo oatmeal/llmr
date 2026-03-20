@@ -2,51 +2,44 @@
 
 ## Project Overview
 
-Interactive web map viewer for the Minecraft multiplayer server "りりまる村" (LiliMaru Village). Displays tile-based maps of three dimensions (Overworld, Nether, End) with historical snapshots, layer overlays, and a timeline control.
+Data repository for the web map of the Minecraft multiplayer server "りりまる村" (LiliMaru Village). Contains tile images, layer data, timeline dates, and VOD metadata.
+
+The map application and build tooling live in the engine repo: https://github.com/oatmeal/my-chizu
 
 Deployed at: https://oatmeal.github.io/llmr
 
-## Tech Stack
+## Deployment
 
-- **Leaflet.js** (v1.9.2) — map rendering
-- **Vanilla JavaScript** — no framework; single-file monolith at `lib/map.js`
-- **Node.js 16+ / npm 7+** — build tooling only
-- **Terser** — JS minification
-- **Cloudflare Workers** — optional deployment with HTTP auth (`workers-site/`)
-- **GitHub Pages** — primary static hosting
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which calls the reusable build-and-deploy workflow from `oatmeal/my-chizu`. No manual build step needed for CI.
 
-## Build & Run
+## Local Build
+
+With a local clone of the engine repo alongside this one:
 
 ```bash
-npm install       # one-time setup
-npm run build     # outputs to ./deploy/
+node /path/to/my-chizu/build.mjs /path/to/llmr
 ```
 
-Build script: `build.mjs`
+Then serve `deploy/` with any HTTP server (CORS prevents `file://`):
 
-To preview locally, serve `deploy/` with any HTTP server (CORS prevents `file://`):
 ```bash
 python -m http.server --directory deploy
 ```
 
-No automated test suite — manual browser testing only.
-
 ## Project Structure
 
 ```
-lib/map.js             # All application logic (~53KB, single file)
-static/                # Source assets (HTML, CSS, icons)
 data/                  # Layer/timeline data JSON files
+  config.json          # Per-dimension spatial config (X0, Z0, defaults, tile paths)
   dates.json           # Timeline: YYYYMMDD → display string
-  vods.json            # Twitch VOD metadata
+  vods.json            # Twitch VOD metadata: [{id, date, title}]
   overworld/           # Overworld layer markers/lines
   nether/              # Nether layer markers/lines
   end/                 # End layer markers/lines
 tiles/                 # Tile images: tiles/[dim]/[zoom]/[x]/[z]/[date].png
-deploy/                # Build output (gitignored? check before editing)
-workers-site/          # Cloudflare Workers entry + auth
-build.mjs              # Build orchestration script
-wrangler.toml          # Cloudflare Workers config
+static/                # Site-specific static assets (og.jpeg, etc.)
+site.json              # Site identity: title, OG tags, about page content
+deploy/                # Build output (gitignored)
 notes.md               # Internal data structure documentation
 ```
 
@@ -56,24 +49,12 @@ notes.md               # Internal data structure documentation
 
 **Tile path format:** `tiles/[dimension]/[zoom]/[x]/[z]/[date].png`
 
-**Coordinate system:** Minecraft uses X/Z axes. Leaflet uses LatLng. Conversion handled by `mcProject()` / `mcUnproject()` in `map.js`.
-
-**URL state:** Hash-based (`#d=o&dD={...}`) — permalink panel encodes current view.
-
 **Layer JSON format:** `{ id, name, dimension, markers[], lines[] }` — see `notes.md` for full schema.
-
-**Build output:** `build.mjs` scans the `tiles/` directory and emits `[dim].json` metadata files (bounds, available dates, layer info) into `deploy/data/`.
 
 ## Data & Content Updates
 
-- **Adding new dates:** Update `data/dates.json` and add corresponding tile images under `tiles/`
-- **Adding VODs:** Update `data/vods.json`
+- **Adding new dates:** Update `data/dates.json` and add tile images under `tiles/`
+- **Adding VODs:** Append to `data/vods.json` in `{id, date, title}` format (pre-processed — do not include the raw Twitch title)
 - **Adding/editing layers:** Edit or add JSON files in `data/overworld/`, `data/nether/`, or `data/end/`
-- After any changes, run `npm run build` to regenerate `deploy/`
-
-## Code Conventions
-
-- ES6+ (async/await, arrow functions, destructuring)
-- All UI text is in Japanese
-- Leaflet API extensions used extensively (custom `L.Layer`, projections)
-- Prefer editing `lib/map.js` directly; avoid splitting into multiple files
+- **Updating site identity:** Edit `site.json`
+- Push to `main` — GitHub Actions handles the build and deploy automatically
