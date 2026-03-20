@@ -1,51 +1,39 @@
 # りり村のWeb地図
 
-View site at https://oatmeal.github.io/llmr
+Map viewer for the Minecraft server りりまる村. View at https://oatmeal.github.io/llmr
 
-## Build instructions
+The map application and build tooling live in [oatmeal/my-chizu](https://github.com/oatmeal/my-chizu). This repo contains only the map data: tiles, layers, dates, and VODs.
 
-To build the website from source, follow these steps:
+## Updating content
 
-- Clone this repository
+**Adding a new map snapshot date:**
+1. Add tile images under `tiles/[dim]/[zoom]/[x]/[z]/[date].png`
+2. Add the date entry to `data/dates.json` (`"YYYYMMDD": "display label"`)
+3. Push to `main` — GitHub Actions builds and deploys automatically
 
-- Install　NodeJS 16 or newer from https://nodejs.org/
-
-- In your terminal, navigate to the root directory of this repository and run the following command to set up the environment (only needs to be run once unless `package.json` has been updated.)
-```
-npm install
-```
-
-- Each time you edit HTML / JS / CSS files or adding new tiles or data files, run the following to build the website:
-```
-npm run build
+**Adding a VOD:**
+Add an entry to `data/vods.json` in pre-processed format:
+```json
+{ "id": "twitch_video_id", "date": "YYYYMMDD", "title": "stream title" }
 ```
 
-- The site will be at `deploy/index.html`. You will have to run a local web server to view it properly:
-  - https://developer.mozilla.org/ja/docs/Learn/Common_questions/set_up_a_local_testing_server
-  - I use VS Code for development, and the "VS Code Live Preview Extension" is handy for this.
+**Adding or editing a layer (markers / lines):**
+Edit or add a JSON file in `data/overworld/`, `data/nether/`, or `data/end/`. See [oatmeal/my-chizu notes.md](https://github.com/oatmeal/my-chizu/blob/main/notes.md) for the layer schema.
 
-## How to add tiles / data
+## Local build
 
-To be written...
+With a local clone of [oatmeal/my-chizu](https://github.com/oatmeal/my-chizu):
 
-## Development notes
+```bash
+cd my-chizu && npm install
+node build.mjs /path/to/llmr
+python -m http.server --directory /path/to/llmr/deploy
+```
 
-[These very rough notes](./notes.md) contain an outline of the data structures used in the app.
+## License
 
-## THANKS TO
+The map application code is licensed under the BSD 2-Clause License — see [oatmeal/my-chizu LICENSE](https://github.com/oatmeal/my-chizu/blob/main/LICENSE).
 
-### Open source libraries used
-- https://leafletjs.com
-- https://github.com/ghybs/Leaflet.TileLayer.Fallback
-- https://github.com/noerw/leaflet-sidebar-v2
-
-### Icons
-- https://uxwing.com
-
-## LICENSE
-
-Portions of the code are modified from LeafletJS and Leaflet.TileLayer.Fallback and are under their respective licenses (BSD 2-clause and Apache v2). Other Javascript / CSS / HTML / Python code in this project is licensed under the BSD 2-clause license. See the LICENSE file for full details.
+Tile images and JSON data files in this repository may not be used in other projects without explicit written permission.
 
 Icon SVG files in `static/icons/` are from https://uxwing.com and used under the terms specified at https://uxwing.com/license/. `static/TwitchGlitchPurple.svg` is from the [Twitch brand assets](https://brand.twitch.tv/) and used under the terms specified at https://www.twitch.tv/p/en/legal/trademark/.
-
-Tile images and JSON data files may not be used in other projects without explicit written permission.
