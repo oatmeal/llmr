@@ -20,6 +20,7 @@ await fsPromises.rm(deployDir, {
 });
 
 await fsPromises.cp("static", deployDir, { recursive: true });
+await fsPromises.mkdir(deployDir + "/data", { recursive: true });
 fsPromises.cp("tiles", deployDir + "/tiles", { recursive: true });
 
 fsPromises.cp(
@@ -93,42 +94,24 @@ async function minifyVodsJson() {
 
 minifyVodsJson();
 
+const config = JSON.parse(
+  await fsPromises.readFile("data/config.json", "utf-8")
+);
+
 const layerIds = {};
 
 for (const dimension of ["overworld", "nether", "end"]) {
   // Minecraft coords of upper right-hand corner of the zoom level 4 tile designated as [0, 0]
-  let X0 = 0;
-  let Z0 = 0;
-  let defaultX, defaultZ, defaultZoom, tilePath, errorTileUrl, tileSize;
-  if (dimension === "overworld") {
-    X0 = 6080;
-    Z0 = -64;
-    defaultX = 6620;
-    defaultZ = 605;
-    defaultZoom = 4;
-    tilePath = "tiles/overworld";
-    errorTileUrl = "tiles/overworld.png";
-    tileSize = 256;
-  } else if (dimension === "nether") {
-    X0 = 6080;
-    Z0 = -64;
-    defaultX = 6588; // 831
-    defaultZ = 544; //70
-    defaultZoom = 1;
-    // nether shows (transparent) overworld tiles at a lower zoom
-    tilePath = "tiles/overworld";
-    errorTileUrl = "tiles/nether.png";
-    tileSize = 256;
-  } else if (dimension === "end") {
-    X0 = -64;
-    Z0 = -64;
-    defaultX = 0;
-    defaultZ = 0;
-    defaultZoom = 4;
-    tilePath = "tiles/end";
-    errorTileUrl = "tiles/end.png";
-    tileSize = 256;
-  }
+  const {
+    X0,
+    Z0,
+    defaultX,
+    defaultZ,
+    defaultZoom,
+    tilePath,
+    errorTileUrl,
+    tileSize,
+  } = config.dimensions[dimension];
 
   await fsPromises.mkdir(deployDir + "/data/" + dimension, { recursive: true });
 
