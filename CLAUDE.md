@@ -32,7 +32,7 @@ python -m http.server --directory deploy
 data/                  # Layer/timeline data JSON files
   config.json          # Per-dimension spatial config (X0, Z0, defaults, tile paths)
   dates.json           # Timeline: YYYYMMDD → display string
-  vods.json            # Twitch VOD metadata: [{id, date, title}]
+  vods.json            # YouTube VOD metadata: [{id, date, title}]
   overworld/           # Overworld layer markers/lines
   nether/              # Nether layer markers/lines
   end/                 # End layer markers/lines
@@ -51,10 +51,12 @@ notes.md               # Internal data structure documentation
 
 **Layer JSON format:** `{ id, name, dimension, markers[], lines[] }` — see `notes.md` for full schema.
 
+**VOD links:** `data/vods.json` holds YouTube video ids. The Twitch VODs this archive originally pointed at have all been deleted; `site.json`'s `vods` block configures the playlists to sync from and the title-cleaning rules.
+
 ## Data & Content Updates
 
 - **Adding new dates:** Update `data/dates.json` and add tile images under `tiles/`
-- **Adding VODs:** Append to `data/vods.json` in `{id, date, title}` format (pre-processed — do not include the raw Twitch title)
+- **Adding VODs:** Prefer `node scripts/sync-vods.mjs /path/to/llmr --write` from a my-chizu clone (needs yt-dlp), which pulls new videos from the playlists in `site.json` and cleans their titles. Hand-written entries use `{id, date, title}` with a YouTube video id, and are never overwritten by a later sync. Streams outside the configured playlists must be pinned in `site.json` under `vods.extraVideos`.
 - **Adding/editing layers:** Edit or add JSON files in `data/overworld/`, `data/nether/`, or `data/end/`
 - **Updating site identity:** Edit `site.json`
 - Push to `main` — GitHub Actions handles the build and deploy automatically
