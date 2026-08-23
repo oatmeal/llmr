@@ -17,6 +17,10 @@ VODs are YouTube videos, tracked in `data/vods.json`:
 { "id": "youtube_video_id", "date": "YYYYMMDD", "title": "stream title" }
 ```
 
+To link part way into a long stream, add a `t` field with the offset in seconds
+(`"t": 24043`). It has to be its own field — a `?t=` suffix on `id` breaks the
+link and makes the next sync add the video again as a duplicate.
+
 Rather than adding entries by hand, sync them from the channel's Minecraft
 playlist (configured in `site.json` under `vods`), using a local clone of
 [oatmeal/my-chizu](https://github.com/oatmeal/my-chizu) and
