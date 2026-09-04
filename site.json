@@ -8,7 +8,7 @@
     "locale": "ja_JP"
   },
   "aboutTitle": "りり村のWeb地図について",
-  "aboutHtml": "<p>\n            このサイトは、<a href=\"https://twitch.tv/lilimaruriri\">りりまる村長</a>をはじめとするTPA(Minecraft)のメンバーの皆様のお役に立ちたいと思い、作りました。さらに、TPA(Minecraft)からの建造物や発見された景色の素晴らしさ、美しさを少しでもお伝えできればと思います。\n          </p>\n          <p>当サイトのソースコードは<a href=\"https://github.com/oatmeal/llmr/\">こちら</a>です。ご意見、修正点、バグ報告などありましたら、是非<a href=\"https://github.com/oatmeal/llmr/issues\">このIssuesページ</a>に投稿してください。</p>",
+  "aboutHtml": "<p>\n            このサイトは、<a href=\"https://twitch.tv/lilimaruriri\">りりまる村長</a>をはじめとするTPA(Minecraft)のメンバーの皆様のお役に立ちたいと思い、作りました。さらに、TPA(Minecraft)からの建造物や発見された景色の素晴らしさ、美しさを少しでもお伝えできればと思います。\n          </p>\n          <p>写真の一部は、りりまる村長と鹿(本物)さんが撮影されたものです。掲載をご快諾いただき、誠にありがとうございます。</p>\n          <p>当サイトのソースコードは<a href=\"https://github.com/oatmeal/llmr/\">こちら</a>です。ご意見、修正点、バグ報告などありましたら、是非<a href=\"https://github.com/oatmeal/llmr/issues\">このIssuesページ</a>に投稿してください。</p>",
   "photos": {
     "baseUrl": "photos/",
     "thumbUrl": "photos/thumb/",
